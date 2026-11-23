@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build artifacts
+dist/
+.next/
+out/
+*.tsbuildinfo
+
+# Runtime & persistent local data (contains master.key, config.enc.json, sqlite)
+data/
+apps/api/data/
+backups/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs & OS
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+coverage/
+.impeccable/

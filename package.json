@@ -1,0 +1,26 @@
+{
+  "name": "meofast-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Meetofast — Open-Source, 100% Free, Self-Hosted Web API Development Platform",
+  "license": "Apache-2.0",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=24.7.0"
+  },
+  "scripts": {
+    "dev": "npm run build --workspace=@meofast/shared && npx concurrently -n api,web -c cyan,blue \"npm run dev --workspace=@meofast/api\" \"npm run dev --workspace=@meofast/web\"",
+    "dev:api": "npm run dev --workspace=@meofast/api",
+    "dev:web": "npm run dev --workspace=@meofast/web",
+    "build": "npm run build --workspace=@meofast/shared && npm run build --workspace=@meofast/cli && npm run build --workspace=@meofast/api && npm run build --workspace=@meofast/web",
+    "typecheck": "npm run build --workspace=@meofast/shared && npm run typecheck --workspace=@meofast/cli && npm run typecheck --workspace=@meofast/api && npm run typecheck --workspace=@meofast/web",
+    "test": "npm run build --workspace=@meofast/shared && npm run test --workspace=@meofast/api"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.8.2"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "@meofast/cli",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "type": "module",
+  "bin": {
+    "meofast": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  }
+}

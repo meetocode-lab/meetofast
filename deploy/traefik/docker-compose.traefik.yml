@@ -1,0 +1,42 @@
+# Traefik v3 Reverse Proxy Overlay for Meofast
+# Usage: docker compose -f docker-compose.production.yml -f deploy/traefik/docker-compose.traefik.yml up -d
+
+services:
+  traefik:
+    image: traefik:v3.2
+    container_name: meofast-traefik
+    restart: unless-stopped
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.file.filename=/etc/traefik/dynamic.yml"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL:-admin@example.com}"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./deploy/traefik/dynamic.yml:/etc/traefik/dynamic.yml:ro"
+      - "meofast_letsencrypt:/letsencrypt"
+    networks:
+      - meofast_internal
+
+  web:
+    ports: !override []
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.meofast.rule=Host(`${MEOFAST_DOMAIN:-api-studio.example.com}`)"
+      - "traefik.http.routers.meofast.entrypoints=websecure"
+      - "traefik.http.routers.meofast.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.meofast.middlewares=meofast-sec@file"
+      - "traefik.http.services.meofast.loadbalancer.server.port=4780"
+
+volumes:
+  meofast_letsencrypt:
+    driver: local

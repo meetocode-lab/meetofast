@@ -1,0 +1,49 @@
+name: Bug Report
+description: Report a bug or unexpected behavior in Meetofast
+title: '[Bug]: '
+labels: ['bug']
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what went wrong.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Exact steps to reproduce the issue.
+      placeholder: |
+        1. Open '...'
+        2. Click on '...'
+        3. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+  - type: dropdown
+    id: database
+    attributes:
+      label: Database Engine
+      options:
+        - SQLite
+        - PostgreSQL
+        - MySQL
+        - MariaDB
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Deployment & Version
+      description: e.g. Docker Compose v1.0.0 on Ubuntu 24.04 / Node 24
+      placeholder: Docker Compose / Node v24.x
+    validations:
+      required: true

@@ -1,0 +1,59 @@
+name: meofast
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: api
+    container_name: meofast-api
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      API_PORT: 4781
+      MEOFAST_DATA_DIR: /app/data
+      MEOFAST_MASTER_KEY: ${MEOFAST_MASTER_KEY:-}
+    volumes:
+      - meofast_data:/app/data
+    networks:
+      - meofast_internal
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4781/api/v1/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: web
+    container_name: meofast-web
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 4780
+      HOSTNAME: 0.0.0.0
+      INTERNAL_API_URL: http://api:4781
+    ports:
+      - "${MEOFAST_PORT:-4780}:4780"
+    networks:
+      - meofast_internal
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4780/api/v1/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+volumes:
+  meofast_data:
+    driver: local
+
+networks:
+  meofast_internal:
+    driver: bridge

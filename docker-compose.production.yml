@@ -1,0 +1,112 @@
+name: meofast-production
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: meofast-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-meofast}
+      POSTGRES_USER: ${POSTGRES_USER:-meofast}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - meofast_pgdata:/var/lib/postgresql/data
+    # Security: Database port is intentionally NOT exposed to the public host
+    networks:
+      - meofast_internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-meofast} -d ${POSTGRES_DB:-meofast}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: meofast-redis
+    restart: unless-stopped
+    profiles:
+      - cache
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - meofast_redis:/data
+    networks:
+      - meofast_internal
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: api
+    container_name: meofast-api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      API_PORT: 4781
+      MEOFAST_DATA_DIR: /app/data
+      MEOFAST_MASTER_KEY: ${MEOFAST_MASTER_KEY:-}
+    volumes:
+      - meofast_data:/app/data
+    networks:
+      - meofast_internal
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4781/api/v1/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: web
+    container_name: meofast-web
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 4780
+      HOSTNAME: 0.0.0.0
+      INTERNAL_API_URL: http://api:4781
+    ports:
+      - "127.0.0.1:${MEOFAST_PORT:-4780}:4780"
+    networks:
+      - meofast_internal
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4780/api/v1/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+volumes:
+  meofast_data:
+    driver: local
+  meofast_pgdata:
+    driver: local
+  meofast_redis:
+    driver: local
+
+networks:
+  meofast_internal:
+    driver: bridge

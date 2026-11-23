@@ -1,0 +1,95 @@
+:root {
+  color-scheme: light;
+
+  /* Blue Aurora Brand (Inherited from meorora — Light Default) */
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-active: #1e40af;
+  --color-primary-subtle: #eff6ff;
+  --color-primary-foreground: #ffffff;
+
+  /* Supporting Aurora Accents */
+  --color-cyan: #0891b2;
+  --color-cyan-bright: #22d3ee;
+  --color-sky: #7dd3fc;
+
+  /* Surfaces */
+  --color-background: #f8fbff;
+  --color-surface: #ffffff;
+  --color-surface-secondary: #f1f6fd;
+  --color-surface-hover: #edf4ff;
+
+  /* Text (>= 4.5:1 WCAG AA contrast) */
+  --color-text: #0f172a;
+  --color-text-secondary: #334155;
+  --color-text-muted: #5b6b82;
+
+  /* Borders (Refined shadcn + Blue Aurora crispness) */
+  --color-border: #dce7f5;
+  --color-border-strong: #c3d5ec;
+  --color-focus-ring: #2563eb;
+
+  /* Semantic Status & HTTP Verb Tokens */
+  --color-success: #15803d;
+  --color-success-subtle: #f0fdf4;
+  --color-success-border: #bbf7d0;
+  --color-warning: #b45309;
+  --color-warning-subtle: #fffbeb;
+  --color-warning-border: #fde68a;
+  --color-danger: #b91c1c;
+  --color-danger-hover: #991b1b;
+  --color-danger-subtle: #fef2f2;
+  --color-danger-border: #fecaca;
+  --color-info: #0369a1;
+  --color-info-subtle: #f0f9ff;
+  --color-info-border: #bae6fd;
+
+  /* Solid HTTP Method Pill Fills (WCAG AA >= 4.8:1 with #ffffff) */
+  --method-get-solid: #15803d;
+  --method-post-solid: #2563eb;
+  --method-put-solid: #b45309;
+  --method-patch-solid: #0369a1;
+  --method-delete-solid: #dc2626;
+  --method-neutral-solid: #475569;
+
+  /* Toast Banner Tokens (Opaque Tints + Full Perimeter Stroke + Solid Circle Badge) */
+  --toast-success-bg: #eefbf3;
+  --toast-success-border: #3cc86c;
+  --toast-success-icon: #42d46e;
+
+  --toast-info-bg: #ebf3fe;
+  --toast-info-border: #3b82f6;
+  --toast-info-icon: #2f80ed;
+
+  --toast-warning-bg: #fef9eb;
+  --toast-warning-border: #f2be35;
+  --toast-warning-icon: #f7be27;
+
+  --toast-danger-bg: #fdf0f0;
+  --toast-danger-border: #dc4c4c;
+  --toast-danger-icon: #f25555;
+
+  --toast-close-hover: #ffffff;
+
+  /* Shape & Soft Depth */
+  --radius-sm: 0.3125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.625rem;
+  --radius-full: 9999px;
+
+  --shadow-xs: 0 1px 2px 0 rgb(15 23 42 / 0.04);
+  --shadow-sm: 0 1px 3px 0 rgb(15 23 42 / 0.06), 0 1px 2px -1px rgb(15 23 42 / 0.05);
+  --shadow-md: 0 8px 24px -4px rgb(15 23 42 / 0.08), 0 2px 6px -2px rgb(15 23 42 / 0.04);
+  --shadow-popover: 0 12px 32px -6px rgb(15 23 42 / 0.14), 0 4px 10px -3px rgb(15 23 42 / 0.06);
+
+  /* Motion */
+  --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  --color-overlay: rgb(15 23 42 / 0.45);
+
+  /* Scrollbars */
+  --scrollbar-thumb: #cbd5e1;
+  --scrollbar-thumb-hover: #94a3b8;
+  --scrollbar-track: transparent;
+}

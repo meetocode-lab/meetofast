@@ -1,0 +1,79 @@
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-primary: #3b82f6;
+  --color-primary-hover: #60a5fa;
+  --color-primary-active: #2563eb;
+  --color-primary-subtle: #162c4a;
+  --color-primary-foreground: #ffffff;
+
+  --color-cyan: #22d3ee;
+  --color-cyan-bright: #22d3ee;
+  --color-sky: #7dd3fc;
+
+  --color-background: #071426;
+  --color-surface: #0d1d33;
+  --color-surface-secondary: #132742;
+  --color-surface-hover: #193252;
+
+  --color-text: #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted: #94a3b8;
+
+  --color-border: #1e3552;
+  --color-border-strong: #2c4b70;
+  --color-focus-ring: #60a5fa;
+
+  --color-success: #4ade80;
+  --color-success-subtle: rgb(21 128 61 / 0.22);
+  --color-success-border: rgb(74 222 128 / 0.35);
+  --color-warning: #fbbf24;
+  --color-warning-subtle: rgb(180 83 9 / 0.22);
+  --color-warning-border: rgb(251 191 36 / 0.35);
+  --color-danger: #f87171;
+  --color-danger-hover: #ef4444;
+  --color-danger-subtle: rgb(185 28 28 / 0.22);
+  --color-danger-border: rgb(248 113 113 / 0.35);
+  --color-info: #38bdf8;
+  --color-info-subtle: rgb(3 105 161 / 0.22);
+  --color-info-border: rgb(56 189 248 / 0.35);
+
+  --method-get-solid: #16a34a;
+  --method-post-solid: #2563eb;
+  --method-put-solid: #d97706;
+  --method-patch-solid: #0284c7;
+  --method-delete-solid: #dc2626;
+  --method-neutral-solid: #475569;
+
+  --toast-success-bg: #0c281e;
+  --toast-success-border: #22c55e;
+  --toast-success-icon: #22c55e;
+
+  --toast-info-bg: #0d223f;
+  --toast-info-border: #3b82f6;
+  --toast-info-icon: #2f80ed;
+
+  --toast-warning-bg: #2a200c;
+  --toast-warning-border: #eab308;
+  --toast-warning-icon: #f59e0b;
+
+  --toast-danger-bg: #2c1218;
+  --toast-danger-border: #ef4444;
+  --toast-danger-icon: #ef4444;
+
+  --toast-close-hover: rgb(255 255 255 / 0.12);
+
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.25);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.25);
+  --shadow-md: 0 10px 28px -4px rgb(0 0 0 / 0.42);
+  --shadow-popover: 0 16px 38px -6px rgb(0 0 0 / 0.55), 0 4px 12px -2px rgb(0 0 0 / 0.35);
+  --color-overlay: rgb(2 8 20 / 0.7);
+
+  --scrollbar-thumb: #284366;
+  --scrollbar-thumb-hover: #395c87;
+  --scrollbar-track: transparent;
+}
